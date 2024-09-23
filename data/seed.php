@@ -4,22 +4,9 @@ $arrayArticleIndex = json_decode(file_get_contents('./articleIndex.json'), true)
 
 $arrayDomainIndex = json_decode(file_get_contents('./DomainsIndex.json'), true);
 
-$pdoSettings = json_decode(file_get_contents('./pdoSettings.json'), true);
-
-$dns = $pdoSettings['dns'];
-$user = $pdoSettings['user'];
-$pwd = $pdoSettings['pwd'];
+require_once('../database/pdoOpen.php');
 
 
-try {
-    $pdo = new PDO($dns, $user, $pwd, [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-    ]);
-} catch (PDOException $e) {
-
-    echo 'Connexion échouée' . $e->getMessage();
-}
 
 // $statement = $pdo->prepare("CREATE SCHEMA `blog` ;");
 // $statement->execute();
