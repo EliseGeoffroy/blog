@@ -1,0 +1,93 @@
+@import url("./general-style.css");
+
+ main {
+    display:flex;
+    flex-wrap:wrap;
+    overflow-y: scroll;
+
+    height: 42rem;
+    
+}
+
+
+
+ul {
+    list-style-type: none;
+    padding-left:5px;
+}
+
+
+
+
+h1{
+    font-size:35px;
+    text-align: center;
+    color:var(--dark);
+    font-weight:500 ;
+}
+
+.domains {
+    border:var(--border);
+    border-radius: var(--border-radius);
+    box-shadow:var(--box-shadow);
+    width:20%;
+    text-align:center;
+    background-color: white;
+    color:gray;
+    
+}
+
+.gallery {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    width:70%;
+    
+}
+
+.gallery li {
+    border:var(--border);
+    border-radius: var(--border-radius);
+    box-shadow:var(--box-shadow);
+    margin:1%;
+    background-color: white;
+    padding:10px;
+    width:300px;
+    text-align:center;
+    height: 300px;
+    transition: border 0.1s;
+}
+
+.img-container {
+    background-size:cover;
+    height:10rem;
+}
+.gallery li:hover {
+    border-width:5px;
+}
+.create {
+    bottom: 15%;
+    position: fixed;
+    right: 0;
+    
+}
+
+.create button {
+    border:var(--border);
+    border-radius:100%;
+    box-shadow:var(--box-shadow);
+    background-color:var(--medium);
+    width:75px;
+    height: 75px;
+    font-size:50px;
+    cursor:pointer;
+}
+
+.domainArticle {
+    border:var(--border);
+    border-color:white;
+    border-radius:var(--border-radius);
+    font-family:var(--font-family-light);
+}

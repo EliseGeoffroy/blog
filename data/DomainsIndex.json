@@ -1,0 +1,47 @@
+[
+    {
+        "name": "Nintendo Switch",
+        "number": 2,
+        "color": {
+            "r": 185,
+            "g": 89,
+            "b": 175
+        }
+    },
+    {
+        "name": "Nintendo DS",
+        "number": 1,
+        "color": {
+            "r": 54,
+            "g": 131,
+            "b": 183
+        }
+    },
+    {
+        "name": "PlayStation 4",
+        "number": 3,
+        "color": {
+            "r": 145,
+            "g": 92,
+            "b": 95
+        }
+    },
+    {
+        "name": "PC",
+        "number": 1,
+        "color": {
+            "r": 104,
+            "g": 127,
+            "b": 196
+        }
+    },
+    {
+        "name": "Game Boy",
+        "number": 1,
+        "color": {
+            "r": 191,
+            "g": 177,
+            "b": 88
+        }
+    }
+]
