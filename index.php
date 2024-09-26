@@ -43,9 +43,6 @@ foreach ($domainsTable as &$domain) {
             <ul>
                 <?php
                 foreach ($domainsTable as $domainSingle) :
-                    // echo '<pre>';
-                    // print_r($domainSingle);
-                    // echo '</pre>';
                     if ($domainSingle['number'] != 0):
                 ?>
                         <li>
