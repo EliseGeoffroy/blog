@@ -38,9 +38,6 @@ if (count(array_filter($errorTable, fn($el) => $el != '')) == 0) {
         $color = 'rgb(' . mt_rand(50, 200) . ',' . mt_rand(50, 200) . ',' . mt_rand(50, 200) . ')';
         $domainArticle = $domainDB->insertDomain($_POST['newDomain'], $color);
 
-        // $statementSearchNewDomain = $domainDB->selectIdByName($_POST['newDomain']);
-        // $statementSearchNewDomain->execute();
-        // $domainArticle = $statementSearchNewDomain->fetch()['idDomain'];
     } else {
         $domainArticle = $_POST['domain'];
     }
