@@ -29,12 +29,6 @@ class DomainDB
         return $this->pdo->lastInsertId();
     }
 
-    //     function selectIdByName($name)
-    //     {
-    //         $this->statementSelectIdByName->bindValue(':name', $name);
-    //         $this->statementSelectIdByName->execute();
-    //         return $this->statementSelectIdByName->fetchAll();;
-    //     }
 }
 
 return new DomainDB($pdo);
