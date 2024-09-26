@@ -8,8 +8,6 @@ require_once('../database/pdoOpen.php');
 
 
 
-// $statement = $pdo->prepare("CREATE SCHEMA `blog` ;");
-// $statement->execute();
 
 //table domain
 
