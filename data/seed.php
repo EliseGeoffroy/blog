@@ -13,7 +13,7 @@ require_once('../database/pdoOpen.php');
 
 //table domain
 
-$statement = $pdo->prepare("    CREATE TABLE `blog`.`domain` (
+$statement = $pdo->prepare("CREATE TABLE `blog`.`domain` (
         `idDomain` INT NOT NULL AUTO_INCREMENT,
         `name` VARCHAR(45) NOT NULL,
         `color` VARCHAR(45) NOT NULL,
