@@ -22,9 +22,6 @@ foreach ($domainsTable as &$domain) {
 
     $allNumber += $number;
 }
-// echo '<pre>';
-// print_r($domainsTable);
-// echo '</pre>';
 
 ?>
 <!DOCTYPE html>
