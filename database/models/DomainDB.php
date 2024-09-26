@@ -12,7 +12,6 @@ class DomainDB
     {
         $this->statementFetchAll = $this->pdo->prepare("SELECT idDomain,name FROM domain");
         $this->statementInsertDomain = $this->pdo->prepare("INSERT INTO domain VALUES (DEFAULT,:name,:color)");
-        //     $this->statementSelectIdByName = $this->pdo->prepare("SELECT idDomain FROM domain WHERE name=:name");
     }
 
 
