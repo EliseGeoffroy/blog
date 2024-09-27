@@ -46,7 +46,7 @@ foreach ($domainsTable as &$domain) {
                     if ($domainSingle['number'] != 0):
                 ?>
                         <li>
-                            <a href=<?= "'./index.php?domain=" . $domainSingle['idDomain'] . "'" ?> style="text-decoration: none; color:black">
+                            <a href=<?= "'./index.php?domain=" . $domainSingle['idDomain'] . "'" ?>>
                                 <?= $domainSingle['name'] . ' (' . $domainSingle['number'] . ')' ?>
                             </a>
                         </li>
@@ -55,7 +55,7 @@ foreach ($domainsTable as &$domain) {
                 endforeach; ?>
 
                 <li>
-                    <a href='./index.php' style="text-decoration: none; color:black">
+                    <a href='./index.php'>
                         <?= 'Toutes consoles confondues (' . $allNumber . ')' ?>
                     </a>
                 </li>
@@ -68,7 +68,7 @@ foreach ($domainsTable as &$domain) {
 
 
                     <li>
-                        <a href=<?= './lecture.php?id=' . $article['id'] ?> style="text-decoration: none">
+                        <a href=<?= './lecture.php?id=' . $article['id'] ?>>
                             <div class=img-container style="background-image:url(<?= $article['picture'] ?>)"></div>
                             <p class=domainArticle style="background-color:<?= $article['color'] ?>;"><?= $article['name'] ?></p>
                             <p><?= $article['title'] ?></p>
@@ -83,7 +83,7 @@ foreach ($domainsTable as &$domain) {
 
         </ul>
         <div class=create>
-            <a href="./edit.php?action=create" style="text-decoration: none" ;>
+            <a href="./edit.php?action=create">
                 <button>+</button>
             </a>
         </div>

@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <header>LilyBlog - Edition</header>
 
     <main>
-        <a href="./index.php" class=retour style="text-decoration: none">
+        <a href="./index.php" class=retour>
             <button id="retour">
                 <img src="./data/retour.jpg" width="25" height="25">
             </button>

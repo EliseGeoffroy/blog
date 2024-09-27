@@ -23,7 +23,7 @@ $article = $articleDB->selectById($_GET['id']);
 
 <body>
     <header>LilyBlog - Lecture</header>
-    <a href="./index.php" class=retour style="text-decoration: none">
+    <a href="./index.php" class=retour>
         <button id="retour">
             <img src="./data/retour.jpg" width="30" height="30">
         </button>
@@ -37,10 +37,10 @@ $article = $articleDB->selectById($_GET['id']);
             <p class="contains"><?= $article['contain'] ?></p>
         </article>
         <article class=actions>
-            <a href='./supp.php?id=<?= $article['id'] ?>' style='text-decoration:none'>
+            <a href='./supp.php?id=<?= $article['id'] ?>'>
                 <button class=supp name='Supp'>Supprimer l'article</button>
             </a>
-            <a href=<?= './edit.php?action=modify&id=' . $article['id'] ?> style='text-decoration: none'>
+            <a href=<?= './edit.php?action=modify&id=' . $article['id'] ?>>
                 <button class=edit name='Edit'>Editer l'article</button>
             </a>
         </article>

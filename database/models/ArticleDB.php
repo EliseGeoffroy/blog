@@ -14,7 +14,7 @@ class ArticleDB
     function __construct(private $pdo)
     {
         $this->statementFetchByDomain = $this->pdo->prepare("SELECT article.id, article.title, article.contain, article.picture, domain.name, domain.color 
-                                                            FROM article JOIN domain ON article.domain=domain.idDomain 
+                                                              FROM article JOIN domain ON article.domain=domain.idDomain 
                                                             WHERE domain=:domain");
 
         $this->statementFetchAll = $this->pdo->prepare("SELECT article.id, article.title, article.contain, article.picture, domain.name, domain.color 
