@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 //création des cookies
                 setcookie('session', $idSession, time() + 60 * 60 * 24, '', '', false, true);
-                $signature = hash_hmac('sha256', $idSession, $secretkey);
+                $signature = hash_hmac('sha256', $idSession, $secretKey);
                 setcookie('signature', $signature, time() + 60 * 60 * 24, '', '', false, true);
 
                 header('Location:./index.php');
