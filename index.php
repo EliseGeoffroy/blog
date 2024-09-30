@@ -13,15 +13,7 @@ if (isset($_GET['domain'])) {
 
 $domainsTable = $domainDB->selectAll();
 
-$allNumber = 0;
-
-foreach ($domainsTable as &$domain) {
-    $result = $articleDB->selectByDomain($domain['idDomain']);
-    $number = count($result);
-    $domain = [...$domain, 'number' => $number];
-
-    $allNumber += $number;
-}
+$allNumber = array_reduce(array_column($domainsTable, 'number'), fn($a, $b) => $a + $b);
 
 ?>
 <!DOCTYPE html>

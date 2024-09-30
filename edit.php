@@ -51,11 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </header>
 
     <main>
-        <a href="./index.php" class=retour>
-            <button id="retour">
-                <img src="./data/retour.jpg" width="25" height="25">
-            </button>
-        </a>
+        <?php require_once $dir . '/includes/home.php' ?>
 
         <?= $create ? '<form action="./edit.php?action=createSave" method="POST">' : '<form action="./edit.php?action=modifySave&id=' . $_GET['id'] . '" method="POST">' ?>
         <div class=formulaire>

@@ -16,7 +16,7 @@ if (is_array(isLogged($sessionDB, $secretKey))) {
 
     <nav>
 
-        <a class="navtab" href='./profile.php'>
+        <a class="navtab" href='./profile.php?username=<?= $username ?>'>
             <?= $username ?>
         </a>
 

@@ -71,6 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         LilyBlog - Inscription
         <?php require_once($dir . '/includes/nav.php') ?>
     </header>
+    <?php require_once $dir . '/includes/home.php' ?>
     <main>
 
         <form action='./register.php' method='POST'>

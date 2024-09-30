@@ -6,6 +6,8 @@ class ArticleDB
 {
     private PDOStatement $statementFetchAll;
     private PDOStatement $statementFetchByDomain;
+    private PDOStatement $statementFetchByAuthor;
+    private PDOStatement $statementFetchByAuthorAndDomain;
     private PDOStatement $statementFetchOneById;
     private PDOStatement $statementInsert;
     private PDOStatement $statementUpdate;
@@ -16,6 +18,15 @@ class ArticleDB
         $this->statementFetchByDomain = $this->pdo->prepare("SELECT article.id, article.title, article.contain, article.picture, article.author, domain.name, domain.color 
                                                               FROM article JOIN domain ON article.domain=domain.idDomain 
                                                             WHERE domain=:domain");
+
+        $this->statementFetchByAuthor = $this->pdo->prepare("SELECT article.id, article.title, article.contain, article.picture, article.author, domain.name, domain.color 
+                                                            FROM article JOIN domain ON article.domain=domain.idDomain
+                                                            WHERE author=:author ORDER BY domain.IdDomain");
+
+        $this->statementFetchByAuthorAndDomain = $this->pdo->prepare("SELECT article.id, article.title, article.contain, article.picture, article.author, domain.name, domain.color 
+                                                              FROM article JOIN domain ON article.domain=domain.idDomain 
+                                                            WHERE article.domain=:domain AND article.author=:author");
+
 
         $this->statementFetchAll = $this->pdo->prepare("SELECT article.id, article.title, article.contain, article.picture, article.author, domain.name, domain.color 
                                                         FROM article JOIN domain ON article.domain=domain.idDomain
@@ -44,6 +55,22 @@ class ArticleDB
         $this->statementFetchByDomain->execute();
 
         return $this->statementFetchByDomain->fetchAll();
+    }
+
+
+    function selectByAuthor($author)
+    {
+        $this->statementFetchByAuthor->bindValue(':author', $author);
+        $this->statementFetchByAuthor->execute();
+        return $this->statementFetchByAuthor->fetchAll();
+    }
+
+    function selectByAuthorAndDomain($domain, $author)
+    {
+        $this->statementFetchByAuthorAndDomain->bindValue(':domain', $domain);
+        $this->statementFetchByAuthorAndDomain->bindValue(':author', $author);
+        $this->statementFetchByAuthorAndDomain->execute();
+        return $this->statementFetchByAuthorAndDomain->fetchAll();
     }
 
     function selectAll()
