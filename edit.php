@@ -46,7 +46,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 
 <body>
-    <header>LilyBlog - Edition</header>
+    <header>LilyBlog - Edition
+        <?php require_once $dir . '/includes/nav.php' ?>
+    </header>
 
     <main>
         <a href="./index.php" class=retour>
