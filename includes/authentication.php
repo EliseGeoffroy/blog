@@ -1,7 +1,9 @@
 <?php
 
 require_once $dir . '/data/secretkey.php';
-$sessionDB = require_once $dir . '/database/models/sessionDB.php';
+if (!isset($sessionDB)) {
+    $sessionDB = require_once $dir . '/database/models/sessionDB.php';
+}
 
 function isLogged($sessionDB, $secretKey)
 {

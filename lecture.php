@@ -1,10 +1,12 @@
 <?php
 
+$dir = __DIR__;
+
 
 $_GET = filter_input_array(INPUT_GET, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-require_once('./database/pdoOpen.php');
-$articleDB = require_once('./database/models/ArticleDB.php');
+require_once($dir . '/database/pdoOpen.php');
+$articleDB = require_once($dir . '/database/models/ArticleDB.php');
 
 
 $article = $articleDB->selectById($_GET['id']);
@@ -22,7 +24,9 @@ $article = $articleDB->selectById($_GET['id']);
 </head>
 
 <body>
-    <header>LilyBlog - Lecture</header>
+    <header>LilyBlog - Lecture
+        <?php require_once $dir . '/includes/nav.php' ?>
+    </header>
     <a href="./index.php" class=retour>
         <button id="retour">
             <img src="./data/retour.jpg" width="30" height="30">
@@ -37,12 +41,14 @@ $article = $articleDB->selectById($_GET['id']);
             <p class="contains"><?= $article['contain'] ?></p>
         </article>
         <article class=actions>
-            <a href='./supp.php?id=<?= $article['id'] ?>'>
-                <button class=supp name='Supp'>Supprimer l'article</button>
-            </a>
-            <a href=<?= './edit.php?action=modify&id=' . $article['id'] ?>>
-                <button class=edit name='Edit'>Editer l'article</button>
-            </a>
+            <?php if ($username == $article['author']): ?>
+                <a href='./supp.php?id=<?= $article['id'] ?>'>
+                    <button class=supp name='Supp'>Supprimer l'article</button>
+                </a>
+                <a href=<?= './edit.php?action=modify&id=' . $article['id'] ?>>
+                    <button class=edit name='Edit'>Editer l'article</button>
+                </a>
+            <?php endif; ?>
         </article>
     </main>
     <footer>Lily Creative Commons</footer>
