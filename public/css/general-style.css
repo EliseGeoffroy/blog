@@ -58,3 +58,12 @@ a {
     font-family:var(--font-family-light);
 }
 
+.navtab {
+    padding-right: 2rem;
+    color: white;
+    font-family: var(--font-family);
+}
+nav {
+    display: flex;
+    justify-content: flex-end;
+}

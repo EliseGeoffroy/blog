@@ -1,5 +1,5 @@
 <?php
-
+$dir = __DIR__;
 $articleDB = require_once('./database/models/ArticleDB.php');
 $domainDB = require_once('./database/models/DomainDB.php');
 
@@ -36,7 +36,9 @@ foreach ($domainsTable as &$domain) {
 </head>
 
 <body>
-    <header>LilyBlog - Accueil</header>
+
+    <?php require_once($dir . '/includes/header.php') ?>
+
     <main>
 
         <article class=domains>

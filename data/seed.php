@@ -1,10 +1,29 @@
 <?php
 
+require_once('../database/pdoOpen.php');
+
+$statement = $pdo->prepare("DROP TABLE article");
+$statement->execute();
+
+$statement = $pdo->prepare("DROP TABLE domain");
+$statement->execute();
+
+$statement = $pdo->prepare("DROP TABLE user");
+$statement->execute();
+
+$statement = $pdo->prepare("DROP TABLE session");
+$statement->execute();
+
+
+
+
+
+
 $arrayArticleIndex = json_decode(file_get_contents('./articleIndex.json'), true);
 
 $arrayDomainIndex = json_decode(file_get_contents('./DomainsIndex.json'), true);
 
-require_once('../database/pdoOpen.php');
+
 
 
 
@@ -87,3 +106,23 @@ function searchDomain($article, $pdo)
 
     return $domain['idDomain'];
 }
+
+//table user
+$statement = $pdo->prepare("CREATE TABLE `blog`.`user` (
+    `idUser` INT NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(45) NOT NULL UNIQUE,
+    `email` VARCHAR(255) NOT NULL UNIQUE,
+    `password` VARCHAR(100) NOT NULL,
+    PRIMARY KEY (`idUser`))
+    ;");
+
+$statement->execute();
+
+//table session
+$statement = $pdo->prepare("CREATE TABLE `blog`.`session` (
+    `idSession` CHAR(64) NOT NULL,
+    `idUser` INT NOT NULL,
+    PRIMARY KEY (`idSession`))
+    ;");
+
+$statement->execute();
