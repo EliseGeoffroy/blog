@@ -36,9 +36,9 @@ foreach ($domainsTable as &$domain) {
 </head>
 
 <body>
-
-    <?php require_once($dir . '/includes/header.php') ?>
-
+    <header>LilyBlog - Accueil
+        <?php require_once($dir . '/includes/nav.php') ?>
+    </header>
     <main>
 
         <article class=domains>
@@ -74,6 +74,7 @@ foreach ($domainsTable as &$domain) {
                             <div class=img-container style="background-image:url(<?= $article['picture'] ?>)"></div>
                             <p class=domainArticle style="background-color:<?= $article['color'] ?>;"><?= $article['name'] ?></p>
                             <p><?= $article['title'] ?></p>
+                            <p>Par <?= $article['author'] ?></p>
                         </a>
                     </li>
 
@@ -84,11 +85,13 @@ foreach ($domainsTable as &$domain) {
 
 
         </ul>
-        <div class=create>
-            <a href="./edit.php?action=create">
-                <button>+</button>
-            </a>
-        </div>
+        <?php if ($isLogged): ?>
+            <div class=create>
+                <a href="./edit.php?action=create">
+                    <button>+</button>
+                </a>
+            </div>
+        <?php endif; ?>
 
     </main>
 
