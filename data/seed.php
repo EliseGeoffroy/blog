@@ -62,6 +62,7 @@ $statement = $pdo->prepare("CREATE TABLE `blog`.`article` (
     `contain` LONGTEXT NOT NULL,
     `picture` VARCHAR(100) NOT NULL,
     `domain` INT NOT NULL,
+    `author` VARCHAR(45) NOT NULL,
     PRIMARY KEY (`id`))
     ;");
 
@@ -75,23 +76,30 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION;");
 $statement->execute();
 
-$statement = $pdo->prepare("INSERT INTO article (id,title,contain,picture,domain) VALUES (DEFAULT, :title, :contain,:picture,:domain)");
+
+
+
+
+$statement = $pdo->prepare("INSERT INTO article (id,title,contain,picture,author,domain) VALUES (DEFAULT, :title, :contain,:picture,:author,:domain)");
 
 $title = '';
 $contain = '';
 $picture = '';
 $domain = '';
+$author = '';
 
 $statement->bindParam(':title', $title);
 $statement->bindParam(':contain', $contain);
 $statement->bindParam(':picture', $picture);
 $statement->bindParam(':domain', $domain);
+$statement->bindParam(':author', $author);
 
 foreach ($arrayArticleIndex as $article) {
     $title = $article['title'];
     $contain = $article['contain'];
     $picture = $article['picture'];
     $domain = searchDomain($article, $pdo);
+    $author = $article['author'];
 
     $statement->execute();
 }
@@ -117,6 +125,14 @@ $statement = $pdo->prepare("CREATE TABLE `blog`.`user` (
     ;");
 
 $statement->execute();
+
+// $statement = $pdo->prepare("ALTER TABLE `blog`.`article` 
+// ADD CONSTRAINT `FK_article_user_author`
+// FOREIGN KEY (`author`)
+// REFERENCES `blog`.`user` (`name`)
+// ON DELETE NO ACTION
+// ON UPDATE NO ACTION;");
+// $statement->execute();
 
 //table session
 $statement = $pdo->prepare("CREATE TABLE `blog`.`session` (
