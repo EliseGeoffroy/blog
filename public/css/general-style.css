@@ -56,10 +56,12 @@ a {
     text-decoration: none;
     color:black;
     font-family:var(--font-family-light);
+    cursor: pointer;
 }
 
 .navtab {
     padding-right: 2rem;
+    padding-top:0rem;
     color: white;
     font-family: var(--font-family);
 }
