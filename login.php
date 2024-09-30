@@ -74,8 +74,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 
 <body>
-    <?php require_once($dir . '/includes/header.php') ?>
-
+    <header> LilyBlog - Connexion
+        <?php require_once($dir . '/includes/nav.php') ?>
+    </header>
     <main>
 
         <form action='./login.php' method='POST'>
