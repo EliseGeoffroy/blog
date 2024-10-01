@@ -15,20 +15,8 @@ $statement = $pdo->prepare("DROP TABLE session");
 $statement->execute();
 
 
-
-
-
-
-$arrayArticleIndex = json_decode(file_get_contents('./articleIndex.json'), true);
-
-$arrayDomainIndex = json_decode(file_get_contents('./DomainsIndex.json'), true);
-
-
-
-
-
-
 //table domain
+$arrayDomainIndex = json_decode(file_get_contents('./DomainsIndex.json'), true);
 
 $statement = $pdo->prepare("CREATE TABLE `blog`.`domain` (
         `idDomain` INT NOT NULL AUTO_INCREMENT,
@@ -54,7 +42,7 @@ foreach ($arrayDomainIndex as $domain) {
 }
 
 //table article
-
+$arrayArticleIndex = json_decode(file_get_contents('./articleIndex.json'), true);
 
 $statement = $pdo->prepare("CREATE TABLE `blog`.`article` (
     `id` INT NOT NULL AUTO_INCREMENT,
@@ -75,9 +63,6 @@ REFERENCES `blog`.`domain` (`idDomain`)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;");
 $statement->execute();
-
-
-
 
 
 $statement = $pdo->prepare("INSERT INTO article (id,title,contain,picture,author,domain) VALUES (DEFAULT, :title, :contain,:picture,:author,:domain)");
@@ -116,6 +101,10 @@ function searchDomain($article, $pdo)
 }
 
 //table user
+$arrayUser = json_decode(file_get_contents('./user.json'), true);
+
+
+
 $statement = $pdo->prepare("CREATE TABLE `blog`.`user` (
     `idUser` INT NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(45) NOT NULL UNIQUE,
@@ -126,13 +115,34 @@ $statement = $pdo->prepare("CREATE TABLE `blog`.`user` (
 
 $statement->execute();
 
-// $statement = $pdo->prepare("ALTER TABLE `blog`.`article` 
-// ADD CONSTRAINT `FK_article_user_author`
-// FOREIGN KEY (`author`)
-// REFERENCES `blog`.`user` (`name`)
-// ON DELETE NO ACTION
-// ON UPDATE NO ACTION;");
-// $statement->execute();
+
+$statement = $pdo->prepare("INSERT INTO user (idUser,name,email,password) VALUES (DEFAULT, :name,:email,:password)");
+
+$name = '';
+$email = '';
+$password = '';
+
+
+$statement->bindParam(':name', $name);
+$statement->bindParam(':email', $email);
+$statement->bindParam(':password', $password);
+
+
+foreach ($arrayUser as $user) {
+    $name = $user['name'];
+    $email = $user['email'];
+    $password = $user['password'];
+
+    $statement->execute();
+}
+
+$statement = $pdo->prepare("ALTER TABLE `blog`.`article` 
+ADD CONSTRAINT `FK_article_user_author`
+FOREIGN KEY (`author`)
+REFERENCES `blog`.`user` (`name`)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;");
+$statement->execute();
 
 //table session
 $statement = $pdo->prepare("CREATE TABLE `blog`.`session` (
