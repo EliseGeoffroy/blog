@@ -1,6 +1,11 @@
 <?php
 $dir = __DIR__;
 
+require_once $dir . '/includes/authentication.php';
+if (!isLogged($sessionDB, $secretKey)) {
+    header('Location:/');
+}
+
 
 $articleDB = require_once('./database/models/ArticleDB.php');
 $domainDB = require_once('./database/models/DomainDB.php');

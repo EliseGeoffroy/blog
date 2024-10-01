@@ -60,11 +60,18 @@ a {
 }
 
 .navtab {
-    padding-right: 2rem;
+    padding-right: 1rem;
+    padding-left: 1rem;
     padding-top:0rem;
     color: white;
     font-family: var(--font-family);
+    transition: background-color 0.25s;
 }
+
+.navtab:hover {
+    background-color: var(--medium);
+}
+
 nav {
     display: flex;
     justify-content: flex-end;

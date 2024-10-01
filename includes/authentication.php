@@ -14,11 +14,7 @@ function isLogged($sessionDB, $secretKey)
 
         if (hash_equals($hash, $signature)) {
             $user = $sessionDB->selectJoin($idSession);
-            return $user;
-        } else {
-            return false;
         }
-    } else {
-        return false;
     }
+    return $user ?? false;
 }

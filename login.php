@@ -84,12 +84,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <h1>Connexion</h1>
 
             <div class="email item">
-
-                <input type=text placeholder="Email" id=email name=email value=<?= $email ?>>
+                <input type=email placeholder="Email" id=email name=email value="<?= $email ?>">
                 <?= ($error['email'] != '') ? '<p class=error>' . $error['email'] . '</p>' : '' ?>
             </div>
             <div class="password item">
-
                 <input type=text placeholder="Mot de passe" id=password name=password>
                 <?= ($error['password'] != '') ? '<p class=error>' . $error['password'] . '</p>' : '' ?>
             </div>

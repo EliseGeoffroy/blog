@@ -91,3 +91,13 @@ h1{
     border-radius:var(--border-radius);
     font-family:var(--font-family-light);
 }
+
+.author{
+    font-weight:lighter;
+    font-size:smaller;
+    margin-top:0.2rem;
+}
+
+.title {
+    margin-bottom:0.5rem;
+}

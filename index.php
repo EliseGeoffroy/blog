@@ -65,8 +65,8 @@ $allNumber = array_reduce(array_column($domainsTable, 'number'), fn($a, $b) => $
                         <a href=<?= './lecture.php?id=' . $article['id'] ?>>
                             <div class=img-container style="background-image:url(<?= $article['picture'] ?>)"></div>
                             <p class=domainArticle style="background-color:<?= $article['color'] ?>;"><?= $article['name'] ?></p>
-                            <p><?= $article['title'] ?></p>
-                            <p>Par <?= $article['author'] ?></p>
+                            <p class=title><?= $article['title'] ?></p>
+                            <p class=author>Par <?= $article['author'] ?></p>
                         </a>
                     </li>
 

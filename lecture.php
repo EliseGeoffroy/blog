@@ -33,10 +33,11 @@ $article = $articleDB->selectById($_GET['id']);
         <article class=news>
             <img src=<?= $article['picture'] ?>>
             <h1><?= $article['title'] ?></h1>
+            <p class="author">Par <?= $article['author'] ?></p>
             <p class="contains"><?= $article['contain'] ?></p>
         </article>
         <article class=actions>
-            <?php if ($username == $article['author']): ?>
+            <?php if ($name == $article['author']): ?>
                 <a href='./supp.php?id=<?= $article['id'] ?>'>
                     <button class=supp name='Supp'>Supprimer l'article</button>
                 </a>

@@ -1,11 +1,18 @@
 <?php
 $dir = __DIR__;
 
+
+
 $articleDB = require_once $dir . '/database/models/ArticleDB.php';
 $domainDB = require_once $dir . '/database/models/DomainDB.php';
 
 $_GET = filter_input_array(INPUT_GET, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $username = $_GET['username'];
+
+require_once $dir . '/includes/authentication.php';
+if (isLogged($sessionDB, $secretKey)['name'] != $_GET['username']) {
+    header('Location:/');
+}
 
 if (isset($_GET['domain'])) {
     $articleTable = $articleDB->selectByAuthorAndDomain($_GET['domain'], $username);

@@ -1,10 +1,10 @@
 <?php require_once $dir . '/includes/authentication.php';
 if (is_array(isLogged($sessionDB, $secretKey))) {
-    $username = (isLogged($sessionDB, $secretKey))['name'];
+    $name = (isLogged($sessionDB, $secretKey))['name'];
     $isLogged = true;
 } else {
     $isLogged = false;
-    $username = '';
+    $name = '';
 }
 ?>
 
@@ -16,8 +16,8 @@ if (is_array(isLogged($sessionDB, $secretKey))) {
 
     <nav>
 
-        <a class="navtab" href='./profile.php?username=<?= $username ?>'>
-            <?= $username ?>
+        <a class="navtab" href='./profile.php?username=<?= $name ?>'>
+            <?= $name ?>
         </a>
 
         <a class="navtab" href='./logout.php'>

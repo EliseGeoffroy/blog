@@ -4,20 +4,18 @@ $userDB = require_once($dir . '/database/models/userDB.php');
 
 const ERROR_ABSENT = 'Veuillez renseigner ce champ.';
 const ERROR_INVALID = 'Ce champ n\'est pas valide. Veuillez le corriger.';
+const ERROR_INEQUAL = 'Les deux mots de passe doivent être identiques.';
 
-$username = '';
-$email = '';
 
 $error = [
     'email' => '',
     'username' => '',
-    'password' => ''
+    'password' => '',
+    'confirmPassword' => ''
 ];
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-
 
     $inputPOST = filter_input_array(INPUT_POST, [
         'email' => [
@@ -49,6 +47,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $password = password_hash($_POST['password'], PASSWORD_ARGON2I);
     }
 
+    if ($_POST['confirmPassword'] == '') {
+        $error['confirmPassword'] = ERROR_ABSENT;
+    } else if ($_POST['confirmPassword'] != $_POST['password']) {
+        $error['confirmPassword'] = ERROR_INEQUAL;
+    }
+
     if (count(array_filter($error, fn($el) => $el != '')) == 0) {
         $userDB->insertUser($username, $email, $password);
         header('Location:./index.php');
@@ -77,19 +81,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <form action='./register.php' method='POST'>
             <h1> Veuillez renseigner les informations suivantes </h1>
             <div class="username item">
-                <input type=text placeholder="Nom d'utilisateur" id=username name=username value=<?= $username ?>>
+                <input type=text placeholder="Nom d'utilisateur" id=username name=username value="<?= $username ?? '' ?>">
                 <?= ($error['username'] != '') ? '<p class=error>' . $error['username'] . '</p>' : '' ?>
-
             </div>
             <div class="email item">
-
-                <input type=text placeholder="Email" id=email name=email value=<?= $email ?>>
+                <input type=email placeholder="Email" id=email name=email value="<?= $email ?? ''  ?>">
                 <?= ($error['email'] != '') ? '<p class=error>' . $error['email'] . '</p>' : '' ?>
             </div>
             <div class="password item">
-
                 <input type=text placeholder="Mot de passe" id=password name=password>
                 <?= ($error['password'] != '') ? '<p class=error>' . $error['password'] . '</p>' : '' ?>
+            </div>
+            <div class="confirmPassword item">
+                <input type=text placeholder="Confirmation du mot de passe" id=confirmPassword name=confirmPassword>
+                <?= ($error['confirmPassword'] != '') ? '<p class=error>' . $error['confirmPassword'] . '</p>' : '' ?>
             </div>
             <button class=accountAction type submit>Créer mon compte</button>
         </form>
