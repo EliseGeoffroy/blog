@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Lily",
+    "email": "lily@gmail.com",
+    "password": "$argon2i$v=19$m=65536,t=4,p=1$b3FSd2EyWlBHV2FickkxRQ$7+Xtds+6XdbG0W1xrqIB8kmQSTpRqB2H6oFYA8QFF8w"
+  },
+  {
+    "name": "LeJoh",
+    "email": "lejoh@gmail.com",
+    "password": "$argon2i$v=19$m=65536,t=4,p=1$LmhDMXBnRnk1bUh4OVFhYw$Ez73VV7LmWAiMGb44HX4qMAqNt/JYG3Sa/igoCzu2KE"
+  }
+]

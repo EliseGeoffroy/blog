@@ -1,5 +1,8 @@
 <?php
 
+if (!isset($sessionDB)) {
+    $sessionDB = require_once $dir . '/database/models/sessionDB.php';
+}
 
 $_GET = filter_input_array(INPUT_GET, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $_POST = filter_input_array(INPUT_POST, [
@@ -37,15 +40,16 @@ if (count(array_filter($errorTable, fn($el) => $el != '')) == 0) {
 
         $color = 'rgb(' . mt_rand(50, 200) . ',' . mt_rand(50, 200) . ',' . mt_rand(50, 200) . ')';
         $domainArticle = $domainDB->insertDomain($_POST['newDomain'], $color);
-
     } else {
         $domainArticle = $_POST['domain'];
     }
 
+    //Author searching
+    $author = $sessionDB->selectJoin($_COOKIE['session'])['name'];
 
 
     if ($new) {
-        $articleDB->insertArticle($_POST['title'], $_POST['contain'], $_POST['picture'], $domainArticle);
+        $articleDB->insertArticle($_POST['title'], $_POST['contain'], $_POST['picture'], $author, $domainArticle);
     } else {
 
         $articleDB->updateArticle($_POST['title'], $_POST['contain'], $_POST['picture'], $domainArticle, $_GET['id']);

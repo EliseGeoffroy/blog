@@ -1,2 +1,3 @@
 database/pdoSettings.json
 fichierTests/
+data/secretkey.php
