@@ -1,7 +1,8 @@
 <?php require_once $dir . '/includes/authentication.php';
-$login = isLogged($sessionDB, $secretKey)
+$login = isLogged($sessionDB, $secretKey);
+
 if (is_array($login)) {
-    $name =$login['name'];
+    $name = $login['name'];
     $isLogged = true;
 } else {
     $isLogged = false;
