@@ -37,3 +37,7 @@ h1 {
 .edit {
     background-color:var(--medium);
 }
+
+img {
+    max-height: 15rem;
+}

@@ -1,6 +1,8 @@
 <?php
 
-$sessionDB = require_once $dir . '/database/models/sessionDB.php';
+if (!isset($sessionDB)) {
+    $sessionDB = require_once $dir . '/database/models/sessionDB.php';
+}
 
 $_GET = filter_input_array(INPUT_GET, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $_POST = filter_input_array(INPUT_POST, [
