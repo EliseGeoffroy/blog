@@ -6,12 +6,13 @@ class DomainDB
 
     private PDOStatement $statementFetchAll;
     private PDOStatement $statementInsertDomain;
-    //  private PDOStatement $statementSelectIdByName;
+    private PDOStatement $statementFetchByAuthor;
 
     function __construct(private $pdo)
     {
-        $this->statementFetchAll = $this->pdo->prepare("SELECT idDomain,name FROM domain");
+        $this->statementFetchAll = $this->pdo->prepare("SELECT domain.name, idDomain, count(*) as number from article join domain on idDomain=domain group by domain ");
         $this->statementInsertDomain = $this->pdo->prepare("INSERT INTO domain VALUES (DEFAULT,:name,:color)");
+        $this->statementFetchByAuthor = $this->pdo->prepare("SELECT domain.name, idDomain, count(*) as number from article join domain on idDomain=domain where   author=:author group by domain ");
     }
 
 
@@ -21,6 +22,13 @@ class DomainDB
         return $this->statementFetchAll->fetchAll();
     }
 
+    function selectByAuthor($author)
+    {
+        $this->statementFetchByAuthor->bindValue(':author', $author);
+        $this->statementFetchByAuthor->execute();
+        return $this->statementFetchByAuthor->fetchAll();
+    }
+
     function insertDomain($name, $color)
     {
         $this->statementInsertDomain->bindValue(':name', $name);
@@ -28,7 +36,6 @@ class DomainDB
         $this->statementInsertDomain->execute();
         return $this->pdo->lastInsertId();
     }
-
 }
 
 return new DomainDB($pdo);

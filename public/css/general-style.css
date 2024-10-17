@@ -56,5 +56,46 @@ a {
     text-decoration: none;
     color:black;
     font-family:var(--font-family-light);
+    cursor: pointer;
 }
 
+.navtab {
+    padding-right: 1rem;
+    padding-left: 1rem;
+    padding-top:0rem;
+    color: white;
+    font-family: var(--font-family);
+    transition: background-color 0.25s;
+}
+
+.navtab:hover {
+    background-color: var(--medium);
+}
+
+nav {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.retour {
+    display:flex;
+    align-items: center;
+    flex-direction:row;
+    position:fixed;
+    left:0;
+}
+.retour button{
+    width:50px;
+    height:50px;
+    border-radius:100%;
+    background-color:white;
+    align-items:center;
+    margin-right:0;
+    margin-left:0;
+}
+
+.retour label {
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:16px;
+    color:var(--dark);
+}

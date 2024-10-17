@@ -1,21 +1,32 @@
 <?php
 $dir = __DIR__;
-$articleDB = require_once('./database/models/ArticleDB.php');
-$domainDB = require_once('./database/models/DomainDB.php');
 
 
 
-if (isset($_GET['domain'])) {
-    $articleTable = $articleDB->selectByDomain($_GET['domain']);
-} else {
-    $articleTable = $articleDB->selectAll();
+$articleDB = require_once $dir . '/database/models/ArticleDB.php';
+$domainDB = require_once $dir . '/database/models/DomainDB.php';
+
+$_GET = filter_input_array(INPUT_GET, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$username = $_GET['username'];
+
+require_once $dir . '/includes/authentication.php';
+if (isLogged($sessionDB, $secretKey)['name'] != $_GET['username']) {
+    header('Location:/');
 }
 
-$domainsTable = $domainDB->selectAll();
+if (isset($_GET['domain'])) {
+    $articleTable = $articleDB->selectByAuthorAndDomain($_GET['domain'], $username);
+} else {
+    $articleTable = $articleDB->selectByAuthor($username);
+}
+
+$domainsTable = [];
+$domainsTable = $domainDB->selectByAuthor($username);
 
 $allNumber = array_reduce(array_column($domainsTable, 'number'), fn($a, $b) => $a + $b);
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,15 +34,18 @@ $allNumber = array_reduce(array_column($domainsTable, 'number'), fn($a, $b) => $
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog</title>
-    <link rel='stylesheet' href="./public/css/index-style.css">
-
+    <link rel='stylesheet' href='./public/css/profile-style.css'>
 </head>
 
 <body>
-    <header>LilyBlog - Accueil
+    <header>LilyBlog - Vos articles
         <?php require_once($dir . '/includes/nav.php') ?>
     </header>
+    <?php require_once $dir . '/includes/home.php' ?>
+    <h1>Les articles de <?= $username ?></h1>
     <main>
+
+
 
         <article class=domains>
             <ul>
@@ -40,7 +54,7 @@ $allNumber = array_reduce(array_column($domainsTable, 'number'), fn($a, $b) => $
                     if ($domainSingle['number'] != 0):
                 ?>
                         <li>
-                            <a href=<?= "'./index.php?domain=" . $domainSingle['idDomain'] . "'" ?>>
+                            <a href=<?= "'./profile.php?username=" . $username . "&domain=" . $domainSingle['idDomain'] . "'" ?>>
                                 <?= $domainSingle['name'] . ' (' . $domainSingle['number'] . ')' ?>
                             </a>
                         </li>
@@ -65,8 +79,8 @@ $allNumber = array_reduce(array_column($domainsTable, 'number'), fn($a, $b) => $
                         <a href=<?= './lecture.php?id=' . $article['id'] ?>>
                             <div class=img-container style="background-image:url(<?= $article['picture'] ?>)"></div>
                             <p class=domainArticle style="background-color:<?= $article['color'] ?>;"><?= $article['name'] ?></p>
-                            <p class=title><?= $article['title'] ?></p>
-                            <p class=author>Par <?= $article['author'] ?></p>
+                            <p><?= $article['title'] ?></p>
+                            <p>Par <?= $article['author'] ?></p>
                         </a>
                     </li>
 
@@ -86,8 +100,5 @@ $allNumber = array_reduce(array_column($domainsTable, 'number'), fn($a, $b) => $
         <?php endif; ?>
 
     </main>
-
-    <footer>Lily Creative Commons</footer>
-</body>
 
 </html>

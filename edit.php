@@ -1,6 +1,11 @@
 <?php
 $dir = __DIR__;
 
+require_once $dir . '/includes/authentication.php';
+if (!isLogged($sessionDB, $secretKey)) {
+    header('Location:/');
+}
+
 
 $articleDB = require_once('./database/models/ArticleDB.php');
 $domainDB = require_once('./database/models/DomainDB.php');
@@ -46,14 +51,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 
 <body>
-    <header>LilyBlog - Edition</header>
+    <header>LilyBlog - Edition
+        <?php require_once $dir . '/includes/nav.php' ?>
+    </header>
 
     <main>
-        <a href="./index.php" class=retour>
-            <button id="retour">
-                <img src="./data/retour.jpg" width="25" height="25">
-            </button>
-        </a>
+        <?php require_once $dir . '/includes/home.php' ?>
 
         <?= $create ? '<form action="./edit.php?action=createSave" method="POST">' : '<form action="./edit.php?action=modifySave&id=' . $_GET['id'] . '" method="POST">' ?>
         <div class=formulaire>

@@ -6,6 +6,8 @@ class ArticleDB
 {
     private PDOStatement $statementFetchAll;
     private PDOStatement $statementFetchByDomain;
+    private PDOStatement $statementFetchByAuthor;
+    private PDOStatement $statementFetchByAuthorAndDomain;
     private PDOStatement $statementFetchOneById;
     private PDOStatement $statementInsert;
     private PDOStatement $statementUpdate;
@@ -13,20 +15,29 @@ class ArticleDB
 
     function __construct(private $pdo)
     {
-        $this->statementFetchByDomain = $this->pdo->prepare("SELECT article.id, article.title, article.contain, article.picture, domain.name, domain.color 
+        $this->statementFetchByDomain = $this->pdo->prepare("SELECT article.id, article.title, article.contain, article.picture, article.author, domain.name, domain.color 
                                                               FROM article JOIN domain ON article.domain=domain.idDomain 
                                                             WHERE domain=:domain");
 
-        $this->statementFetchAll = $this->pdo->prepare("SELECT article.id, article.title, article.contain, article.picture, domain.name, domain.color 
+        $this->statementFetchByAuthor = $this->pdo->prepare("SELECT article.id, article.title, article.contain, article.picture, article.author, domain.name, domain.color 
+                                                            FROM article JOIN domain ON article.domain=domain.idDomain
+                                                            WHERE author=:author ORDER BY domain.IdDomain");
+
+        $this->statementFetchByAuthorAndDomain = $this->pdo->prepare("SELECT article.id, article.title, article.contain, article.picture, article.author, domain.name, domain.color 
+                                                              FROM article JOIN domain ON article.domain=domain.idDomain 
+                                                            WHERE article.domain=:domain AND article.author=:author");
+
+
+        $this->statementFetchAll = $this->pdo->prepare("SELECT article.id, article.title, article.contain, article.picture, article.author, domain.name, domain.color 
                                                         FROM article JOIN domain ON article.domain=domain.idDomain
                                                         ORDER BY domain.IdDomain");
 
-        $this->statementFetchOneById = $this->pdo->prepare("SELECT article.id, article.title, article.contain, article.picture, domain.name, domain.color 
+        $this->statementFetchOneById = $this->pdo->prepare("SELECT article.id, article.title, article.contain, article.picture, article.author, domain.name, domain.color 
                                                            FROM article JOIN domain ON article.domain=domain.idDomain 
                                                            WHERE article.id=:id");
 
-        $this->statementInsert = $this->pdo->prepare("INSERT INTO article (id,title,contain,picture,domain)
-                                                        VALUES (DEFAULT,:title,:contain,:picture,:domain)");
+        $this->statementInsert = $this->pdo->prepare("INSERT INTO article (id, title, contain, picture, author, domain)
+                                                        VALUES (DEFAULT,:title,:contain,:picture, :author, :domain)");
 
         $this->statementUpdate = $this->pdo->prepare("UPDATE article 
                                                         SET title=:title,
@@ -46,6 +57,22 @@ class ArticleDB
         return $this->statementFetchByDomain->fetchAll();
     }
 
+
+    function selectByAuthor($author)
+    {
+        $this->statementFetchByAuthor->bindValue(':author', $author);
+        $this->statementFetchByAuthor->execute();
+        return $this->statementFetchByAuthor->fetchAll();
+    }
+
+    function selectByAuthorAndDomain($domain, $author)
+    {
+        $this->statementFetchByAuthorAndDomain->bindValue(':domain', $domain);
+        $this->statementFetchByAuthorAndDomain->bindValue(':author', $author);
+        $this->statementFetchByAuthorAndDomain->execute();
+        return $this->statementFetchByAuthorAndDomain->fetchAll();
+    }
+
     function selectAll()
     {
         $this->statementFetchAll->execute();
@@ -61,14 +88,14 @@ class ArticleDB
 
 
 
-    function insertArticle($title, $contain, $picture, $idDomain)
+    function insertArticle($title, $contain, $picture, $author, $idDomain)
     {
         $this->statementInsert->bindValue(':title', $title);
         $this->statementInsert->bindValue(':contain', $contain);
         $this->statementInsert->bindValue(':picture', $picture);
+        $this->statementInsert->bindValue(':author', $author);
         $this->statementInsert->bindValue(':domain', $idDomain);
         $this->statementInsert->execute();
-        //  return $this->selectById($this->pdo->lastInsertId());
     }
 
     function updateArticle($title, $contain, $picture, $idDomain, $id)
